@@ -1,5 +1,7 @@
 import { useReducer } from 'react'
 import { BiPlus } from 'react-icons/bi'
+import Success from './Success'
+import Bug from './Bug'
 
 const formReducer = (state, event) => {
     return {
@@ -15,8 +17,12 @@ export default function Form(){
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if(Object.keys(formData).length == 0) return console.log("No Form Data Entered");
         console.log(formData)
     }
+
+    if(Object.keys(formData).length > 0) 
+    return (<Bug message={"Data Added"}/>)
     
     return (
         <form className="grid lg:grid-cols-2 w-4/6 gap-4" onSubmit={handleSubmit}>
