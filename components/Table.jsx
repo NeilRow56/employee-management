@@ -1,8 +1,10 @@
 import Image from "next/image";
 import { BiEdit, BiTrashAlt } from "react-icons/bi";
-import data from '../database/data.json'
+import data from "../database/data.json"
+import { getUsers } from "../lib/helper";
 
 export default function Table(){
+    getUsers().then( res => console.log(res))
     return (
         <table className="min-w-full table-auto">
             <thead>
@@ -46,7 +48,7 @@ function Tr ({id, name, avatar, email, salary, date, status }) {
     return(
         <tr className="bg-gray-50 text-center">
                     <td className="px-16 py-2 flex flex-row items-center">
-                        <Image src= {avatar|| "vercel.svg"} width={40} height={40} alt="" />
+                        <Image src= {avatar|| "vercel.svg"} width={40} height={40} alt="" className="rounded-full object-cover"/>
                         <span className="text-center ml-2 font-semibold">{name || "Unknown"}</span>
                     </td>
                     <td className="px-16 py-2">
