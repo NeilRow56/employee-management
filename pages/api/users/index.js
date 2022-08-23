@@ -1,19 +1,18 @@
 import dbConnect from '../../../lib/mongo'
+import { getUsers, postUser } from '../../../controllers/userControllers'
 
 export default async function handler(req, res) {
     dbConnect().catch(() => res.status(405).json({error: "Error in the Connection"}))
 
-    //type of request
-    //GET, POST, PUT, DELETE
+    // type of request
+    const { method } = req
 
-    const { method} = req
-
-    switch(method) {
+    switch(method){
         case 'GET' :
-            res.status(200).json({ method, name: 'GET Request' });
+            getUsers(req, res)
             break;
         case 'POST':
-            res.status(200).json({ method, name: 'POST Request' });
+            postUser(req, res)
             break;
         case 'PUT':
             res.status(200).json({ method, name: 'PUT Request' });
@@ -21,13 +20,10 @@ export default async function handler(req, res) {
         case 'DELETE':
             res.status(200).json({ method, name: 'DELETE Request' });
             break;
-            default : 
+        default : 
             res.setHeader('Allow', ['GET', 'POST', 'PUT', 'DELETE']);
             res.status(405).end(`Method ${method} Not Allowd`)
             break;
-
     }
-
-    
   }
   
